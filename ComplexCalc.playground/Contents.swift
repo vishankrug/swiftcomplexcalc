@@ -13,50 +13,65 @@ class Calculator {
         }
         return sum
     }
-    func subtract(lhs: Int, rhs: Int) -> Int {
-        return lhs-rhs
-    }
-    func multiply(lhs: Int, rhs: Int) -> Int {
-        return lhs*rhs
-    }
-    func multiply(_ args: [Int]) -> Int {
-        var sum = 0
-        for n in 0...args.count-1{
-            sum = sum * args[n]
-        }
-        return sum
-    }
-    func divide(lhs: Int, rhs: Int) -> Int {
-        return lhs/rhs
-    }
-    func mathOp(lhs: Int, rhs: Int, op: (_ lhs: Int, _ rhs: Int) -> (Int)) -> Int{
-        return op(lhs, rhs)
-    }
-    func mathOp(_ args: [Int], beg: Int, op: (_ i1: Int, _ i2: Int) -> (Int)) ->Int{
-        return op(args, beg)
-    }
-    func count(_ args: [Int]) -> Int{
-        return args.count
-    }
-    func avg(_ args: [Int]) -> Int{
-        return add(args)/(args.count-1)
-    }
     func add(lhs: (Int, Int), rhs:(Int, Int)) -> (Int, Int){
-        return (lhs.0 + rhs.0, lhs.0 + rhs.1)
-    }
-    func subtract(lhs: (Int, Int), rhs:(Int, Int)) -> (Int, Int){
-        return (lhs.0 - rhs.0, lhs.0 - rhs.1)
+        return (lhs.0 + rhs.0, lhs.1 + rhs.1)
     }
     func add(lhs: [String: Int], rhs: [String: Int]) -> ([String: Int]){
         let xVal = lhs["x"]! + rhs["x"]!
         let yVal = lhs["y"]! + rhs["y"]!
         return (["x": xVal, "y": yVal])
     }
+    
+    func subtract(lhs: Int, rhs: Int) -> Int {
+        return lhs-rhs
+    }
+    func subtract(lhs: (Int, Int), rhs:(Int, Int)) -> (Int, Int){
+        return (lhs.0 - rhs.0, lhs.0 - rhs.1)
+    }
     func subtract(lhs: [String: Int], rhs: [String: Int]) -> ([String: Int]){
         let xVal = lhs["x"]! - rhs["x"]!
         let yVal = lhs["y"]! - rhs["y"]!
         return (["x": xVal, "y": yVal])
     }
+    
+    func multiply(lhs: Int, rhs: Int) -> Int {
+        return lhs*rhs
+    }
+    func multiply(_ args: [Int]) -> Int {
+        var sum = args[0]
+        for n in 0...args.count-1{
+            sum = sum * args[n]
+        }
+        return sum
+    }
+    
+    func divide(lhs: Int, rhs: Int) -> Int {
+        return lhs/rhs
+    }
+    
+    func count(_ args: [Int]) -> Int{
+        return args.count
+    }
+    
+    func avg(_ args: [Int]) -> Int{
+        if(args.count == 1){
+            return args[0]
+        } else{
+            return add(args)/(args.count-1)
+        }
+    }
+    
+    func mathOp(lhs: Int, rhs: Int, op: (_ lhs: Int, _ rhs: Int) -> (Int)) -> Int{
+        return op(lhs, rhs)
+    }
+    func mathOp(args: [Int], beg: Int, op: (_ i1: Int, _ i2: Int) -> (Int)) ->Int{
+        var sum = 0
+        for n in 0...args.count-2{
+            sum = sum + op(args[n], args[n+1])
+        }
+        return sum
+    }
+
 }
 
 let calc = Calculator()  // Don't change this declaration name; it's used in all the tests below
