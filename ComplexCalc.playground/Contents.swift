@@ -65,9 +65,9 @@ class Calculator {
         return op(lhs, rhs)
     }
     func mathOp(args: [Int], beg: Int, op: (_ i1: Int, _ i2: Int) -> (Int)) ->Int{
-        var sum = 0
+        var sum = args[0]
         for n in 0...args.count-2{
-            sum = sum + op(args[n], args[n+1])
+            sum = op(sum, args[n+1])
         }
         return sum
     }
